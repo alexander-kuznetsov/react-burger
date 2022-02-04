@@ -1,0 +1,6 @@
+.section {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(min-content, max-content));
+    column-gap: 24px;
+    row-gap: 32px;
+}

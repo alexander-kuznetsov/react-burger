@@ -1,0 +1,26 @@
+.item {
+    position: relative;
+}
+
+.item-counter {
+    position: absolute;
+    top: 0;
+    right: 16px;
+}
+
+.item-price {
+    display: grid;
+    column-gap: 9px;
+    grid-template-columns: repeat(2, minmax(min-content, max-content));
+    justify-content: center;
+}
+
+.item-image {
+    width: 240px;
+    height: 120px;
+}
+
+.item-name {
+    margin: 0;
+    text-align: center;
+}

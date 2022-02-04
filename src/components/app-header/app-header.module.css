@@ -1,0 +1,27 @@
+.header {
+    width: 100%;
+    max-width: 1920px;
+    display: grid;
+    margin: 0;
+    grid-template-columns: repeat(3, 1fr);
+    background: #1C1C21;
+    box-sizing: border-box;
+    padding: 0 320px 0 320px;
+}
+
+.navigation-block {
+    display: flex;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.item_position_center {
+    justify-self: center;
+}
+
+.item_position_end {
+    justify-self: end;
+}
