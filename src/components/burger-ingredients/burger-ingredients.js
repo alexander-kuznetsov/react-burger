@@ -62,8 +62,8 @@ const BurgerIngredients = ({data}) => {
                     openModal={openModal}
                 />
             </div>
-            {modalState.ingredient !== null &&
-            <Modal opened={modalState.isOpened} close={closeModal} type="ingredient">
+            {modalState.isOpened &&
+            <Modal close={closeModal} type="ingredient">
                 <IngredientDetails data={modalState.ingredient}/>
             </Modal>
             }

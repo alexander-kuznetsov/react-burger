@@ -7,7 +7,7 @@ import * as ReactDOM from "react-dom";
 
 const modalElem = document.getElementById("modals");
 
-const Modal = ({opened, close, type, ...props}) => {
+const Modal = ({close, type, ...props}) => {
     React.useEffect(() => {
         document.addEventListener("keydown", handleEscapeEvent);
         return () => {
@@ -29,7 +29,7 @@ const Modal = ({opened, close, type, ...props}) => {
     }
 
     return (ReactDOM.createPortal(
-            <ModalOverlay isOpened={opened} close={close}>
+            <ModalOverlay close={close}>
                 <div className={`${styles.modal} ${getPaddings(type)}`}>
                     {type === 'ingredient' &&
                     <div className={styles.title}>
@@ -49,7 +49,6 @@ const Modal = ({opened, close, type, ...props}) => {
 }
 Modal.propTypes = {
     close: PropTypes.func.isRequired,
-    opened: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired
 };
 export default Modal;

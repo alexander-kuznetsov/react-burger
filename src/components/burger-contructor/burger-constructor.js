@@ -71,8 +71,8 @@ const BurgerConstructor = ({data}) => {
                 <Button type="primary" size="large" onClick={openModal}>
                     Оформить заказ
                 </Button>
-                {Object.keys(modalState.order.length !== 0) &&
-                <Modal opened={modalState.isOpened} close={closeModal} type="order">
+                {modalState.isOpened &&
+                <Modal close={closeModal} type="order">
                     <OrderDetails data={modalState.order}/>
                 </Modal>
                 }

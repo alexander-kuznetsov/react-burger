@@ -3,16 +3,16 @@ import style from './modal-overlay.module.css';
 import PropTypes from "prop-types";
 
 
-const ModalOverlay = ({isOpened, children, close}) => {
+const ModalOverlay = ({children, close}) => {
     return (
-        <div className={`${style.overlay} ${isOpened && style.opened}`} onClick={close}>
+        <div className={`${style.overlay}`} onClick={close}>
             {children}
         </div>
     );
 };
 
 ModalOverlay.propTypes = {
-    isOpened: PropTypes.bool.isRequired,
+    close: PropTypes.func.isRequired,
 };
 
 export default ModalOverlay;
