@@ -1,6 +1,6 @@
 import styles from './burger-contructor.module.css';
 import '../../index.css';
-import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import PropTypes from "prop-types";
 import Modal from "../modal/modal";
@@ -11,7 +11,7 @@ const BurgerConstructor = ({data}) => {
         isOpened: false,
         order: {}
     });
-
+    const [isMovable, setIsMovable] = React.useState(true);
     const openModal = () => {
         const elem = {
             orderId: "034536",
@@ -47,17 +47,22 @@ const BurgerConstructor = ({data}) => {
         <section className={`${styles['burger-constructor']} pt-25 pl-4`}>
             <div className={`${styles.ingredients} scrollbar`}>
                 {data
-                    .map((elem, index) =>
-                        <ConstructorElement
-                            key={`${elem._id}_${index}`}
-                            type={getType(index, data.length)}
-                            isLocked={false}
-                            text={elem.name}
-                            price={elem.price}
-                            thumbnail={elem.image}
-                        />
+                    .map((elem, index) => (
+                            <div className={`${styles.container} pr-2`}>
+                                {isMovable && <DragIcon type="primary"/>}
+                                <ConstructorElement
+                                    key={`${elem._id}_${index}`}
+                                    type={getType(index, data.length)}
+                                    isLocked={false}
+                                    text={elem.name}
+                                    price={elem.price}
+                                    thumbnail={elem.image}
+                                />
+                            </div>
+                        )
                     )}
             </div>
+
             <div className={`${styles.summary} mt-10`}>
                 <div className={`${styles['total-price']} text_type_digits-medium pt-1 pb-1`}>
                     {getTotalPrice()}
