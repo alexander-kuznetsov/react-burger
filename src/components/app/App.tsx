@@ -3,18 +3,41 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import styles from "./app.module.css";
 import BurgerConstructor from "../burger-contructor/burger-constructor";
-import {data} from "../../data";
 
 function App() {
+    const url = "https://norma.nomoreparties.space/api/ingredients";
+    const [ingredients, setIngredients] = React.useState(null);
+    const [isLoading, setIsLoading] = React.useState(false);
 
-    return (
+    const fetchData = () => {
+        fetch(url)
+            .then(result => {
+                if (!result.ok) {
+                    setIsLoading(false);
+                    throw Error("There was an error while data loading!");
+                } else {
+                    return result.json();
+                }
+            })
+            .then(result => {
+                setIngredients(result.data);
+                setIsLoading(false);
+            }).catch(err => console.log(err));
+    };
+
+    React.useEffect(() => {
+        setIsLoading(true);
+        fetchData();
+        console.log(isLoading);
+    }, []);
+
+    return (ingredients &&
         <div className={styles.app}>
             <AppHeader/>
             <main className={styles.main}>
-                <BurgerIngredients data={data}/>
-                <BurgerConstructor data={data}/>
+                <BurgerIngredients data={ingredients}/>
+                <BurgerConstructor data={ingredients}/>
             </main>
-
         </div>
     );
 }
