@@ -16,6 +16,7 @@
 .item {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .item_position_center {
