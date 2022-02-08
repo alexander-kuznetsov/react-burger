@@ -5,13 +5,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import {ingredientType} from "../../utils/types";
 
 const BurgerConstructor = ({data}) => {
     const [modalState, setModalState] = React.useState({
         isOpened: false,
         order: {}
     });
-    const [isMovable, setIsMovable] = React.useState(true);
     const openModal = () => {
         const elem = {
             orderId: "034536",
@@ -38,29 +38,49 @@ const BurgerConstructor = ({data}) => {
                 return "bottom";
         }
     }
-
-    const getTotalPrice = () => {
-        return data.reduce((partSum, elem) => partSum + elem.price, 0);
-    }
+    const getTotalPrice = () => data.reduce((partSum, elem) => partSum + elem.price, 0);
+    const getBun = data.find(elem => elem.type === "bun");
 
     return (
         <section className={`${styles['burger-constructor']} pt-25 pl-4`}>
-            <div className={`${styles.ingredients} scrollbar`}>
-                {data
-                    .map((elem, index) => (
-                            <div className={`${styles.container} pr-2`}>
-                                {isMovable && <DragIcon type="primary"/>}
-                                <ConstructorElement
-                                    key={`${elem._id}_${index}`}
-                                    type={getType(index, data.length)}
-                                    isLocked={false}
-                                    text={elem.name}
-                                    price={elem.price}
-                                    thumbnail={elem.image}
-                                />
-                            </div>
-                        )
-                    )}
+            <div className={styles.ingredients}>
+                <div className="ml-8">
+                    <ConstructorElement
+                        type="top"
+                        text={getBun.name + " (верх)"}
+                        thumbnail={getBun.image}
+                        price={getBun.price}
+                        isLocked={true}
+                    />
+                </div>
+
+                <div className={`${styles.filings} scrollbar`}>
+                    {data.filter(elem => elem.type !== "bun")
+                        .map((elem, index) => (
+                                <div className={`${styles.container} pr-2`}>
+                                    <DragIcon type="primary"/>
+                                    <ConstructorElement
+                                        key={`${elem._id}_${index}`}
+                                        type={getType(index, data.length)}
+                                        isLocked={false}
+                                        text={elem.name}
+                                        price={elem.price}
+                                        thumbnail={elem.image}
+                                    />
+                                </div>
+                            )
+                        )}
+                </div>
+                <div className="pl-8">
+                    <ConstructorElement
+                        type="bottom"
+                        text={getBun.name + " (низ)"}
+                        thumbnail={getBun.image}
+                        price={getBun.price}
+                        isLocked={true}
+                    />
+                </div>
+
             </div>
 
             <div className={`${styles.summary} mt-10`}>
@@ -72,7 +92,7 @@ const BurgerConstructor = ({data}) => {
                     Оформить заказ
                 </Button>
                 {modalState.isOpened &&
-                <Modal close={closeModal} type="order">
+                <Modal close={closeModal} paddings="pt-30 pb-30">
                     <OrderDetails data={modalState.order}/>
                 </Modal>
                 }
@@ -82,19 +102,6 @@ const BurgerConstructor = ({data}) => {
     );
 }
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        "_id": PropTypes.string,
-        "name": PropTypes.string,
-        "type": PropTypes.string,
-        "proteins": PropTypes.number,
-        "fat": PropTypes.number,
-        "carbohydrates": PropTypes.number,
-        "calories": PropTypes.number,
-        "price": PropTypes.number,
-        "image": PropTypes.string,
-        "image_mobile": PropTypes.string,
-        "image_large": PropTypes.string,
-        "__v": PropTypes.number
-    }).isRequired).isRequired
+    data: PropTypes.arrayOf(ingredientType).isRequired
 }
 export default BurgerConstructor;

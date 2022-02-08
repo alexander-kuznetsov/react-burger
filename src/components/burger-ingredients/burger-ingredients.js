@@ -6,6 +6,7 @@ import IngredientSection from "../ingredient-section/ingredient-section";
 import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import {ingredientType} from "../../utils/types";
 
 const BurgerIngredients = ({data}) => {
     const [currentTab, setCurrentTab] = React.useState('bun');
@@ -63,27 +64,18 @@ const BurgerIngredients = ({data}) => {
                 />
             </div>
             {modalState.isOpened &&
-            <Modal close={closeModal} type="ingredient">
+            <Modal
+                title="Детали ингредиента"
+                close={closeModal}
+                paddings="pt-10 pl-10 pb-15 pr-10">
                 <IngredientDetails data={modalState.ingredient}/>
             </Modal>
             }
         </section>
     );
-}
+};
+
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        "_id": PropTypes.string,
-        "name": PropTypes.string,
-        "type": PropTypes.string,
-        "proteins": PropTypes.number,
-        "fat": PropTypes.number,
-        "carbohydrates": PropTypes.number,
-        "calories": PropTypes.number,
-        "price": PropTypes.number,
-        "image": PropTypes.string,
-        "image_mobile": PropTypes.string,
-        "image_large": PropTypes.string,
-        "__v": PropTypes.number
-    }).isRequired).isRequired
+    data: PropTypes.arrayOf(ingredientType).isRequired
 }
 export default BurgerIngredients;

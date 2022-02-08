@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./nutrition-details.module.css";
 import NutritionItem from "../nutrition-item/nutrition-item";
-import PropTypes from "prop-types";
+import {ingredientType} from "../../utils/types";
 
 
 const NutritionDetails = ({data}) => {
@@ -16,11 +16,6 @@ const NutritionDetails = ({data}) => {
 };
 
 NutritionDetails.propTypes = {
-    data: PropTypes.shape({
-        calories: PropTypes.number.isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired
-    }).isRequired
+    data: ingredientType
 };
 export default NutritionDetails;

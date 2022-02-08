@@ -2,6 +2,7 @@ import styles from './ingredient-section.module.css';
 import IngredientItem from "../ingredient-item/ingredient-item";
 import React from "react";
 import PropTypes from "prop-types";
+import {ingredientType} from "../../utils/types";
 
 const IngredientSection = ({type, data, selectedType, openModal}) => {
     const categories = new Map([
@@ -14,7 +15,7 @@ const IngredientSection = ({type, data, selectedType, openModal}) => {
     React.useEffect(() => {
         if (mutableRefObject.current !== null) {
             if (selectedType === type) {
-                mutableRefObject.current.scrollIntoView();
+                mutableRefObject.current.scrollIntoView({behavior: "smooth"});
             }
         }
     });
@@ -38,21 +39,7 @@ const IngredientSection = ({type, data, selectedType, openModal}) => {
     );
 }
 IngredientSection.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-            "_id": PropTypes.string.isRequired,
-            "name": PropTypes.string,
-            "type": PropTypes.string.isRequired,
-            "proteins": PropTypes.number,
-            "fat": PropTypes.number,
-            "carbohydrates": PropTypes.number,
-            "calories": PropTypes.number,
-            "price": PropTypes.number,
-            "image": PropTypes.string,
-            "image_mobile": PropTypes.string,
-            "image_large": PropTypes.string,
-            "__v": PropTypes.number
-        }).isRequired
-    ).isRequired,
+    data: PropTypes.arrayOf(ingredientType).isRequired,
     openModal: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
     selectedType: PropTypes.string.isRequired

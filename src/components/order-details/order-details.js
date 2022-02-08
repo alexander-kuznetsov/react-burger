@@ -1,21 +1,22 @@
 import React from "react";
 import styles from './order-details.module.css';
-import PropTypes from "prop-types";
+import {ingredientType} from "../../utils/types";
 
 const OrderDetails = ({data}) => {
     return (
         <div className={styles.container}>
-            <h1 style={{margin: 0}} className="text_type_digits-large">{data.orderId}</h1>
-            <p style={{margin: 0}} className="text_type_main-medium pt-8">Идентификатор заказа</p>
-            <img style={{margin: 0}} className="pt-15" src={require('./image/done.png')} alt="Индикатор готовности"/>
-            <p style={{margin: 0}} className="text_type_main-default pt-15">{data.status}</p>
-            <p style={{margin: 0}} className="text_type_main-default text_color_inactive pt-2">Дождитесь готовности на
-                орбитальной станции</p>
+            <h1 className={`text_type_digits-large margin_zero ${styles.text}`}>{data.orderId}</h1>
+            <p className={`text_type_main-medium margin_zero pt-8 ${styles.text}`}>Идентификатор заказа</p>
+            <img className="pt-15" src={require('./image/done.png')} alt="Индикатор готовности"/>
+            <p className={`text_type_main-default margin_zero pt-15 ${styles.text}`}>{data.status}</p>
+            <p className={`text_type_main-default text_color_inactive margin_zero pt-2 ${styles.text}`}>
+                Дождитесь готовности на орбитальной станции
+            </p>
         </div>
 
     );
 };
 OrderDetails.propTypes = {
-    data: PropTypes.object
+    data: ingredientType
 };
 export default OrderDetails;

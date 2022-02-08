@@ -13,7 +13,6 @@ function App() {
         fetch(url)
             .then(result => {
                 if (!result.ok) {
-                    setIsLoading(false);
                     throw Error("There was an error while data loading!");
                 } else {
                     return result.json();
@@ -21,8 +20,8 @@ function App() {
             })
             .then(result => {
                 setIngredients(result.data);
-                setIsLoading(false);
-            }).catch(err => console.log(err));
+            }).catch(err => console.log(err))
+            .finally(() => setIsLoading(false));
     };
 
     React.useEffect(() => {

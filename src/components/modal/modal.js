@@ -7,7 +7,7 @@ import * as ReactDOM from "react-dom";
 
 const modalElem = document.getElementById("modals");
 
-const Modal = ({close, type, ...props}) => {
+const Modal = ({close, paddings, title, ...props}) => {
     React.useEffect(() => {
         document.addEventListener("keydown", handleEscapeEvent);
         return () => {
@@ -20,21 +20,14 @@ const Modal = ({close, type, ...props}) => {
         }
     };
 
-    function getPaddings(type) {
-        if (type === "ingredient") {
-            return "pt-10 pl-10 pb-15 pr-10";
-        } else if (type === "order") {
-            return "pt-30 pb-30";
-        } else return "";
-    }
-
     return (ReactDOM.createPortal(
             <ModalOverlay close={close}>
-                <div className={`${styles.modal} ${getPaddings(type)}`}>
-                    {type === 'ingredient' &&
+                <div className={`${styles.modal} ${paddings}`}>
+                    {title &&
                     <div className={styles.title}>
-                        <h1 style={{margin: 0}} className="text_type_main-large text_color_primary">Детали
-                            ингредиента</h1>
+                        <h1 style={{margin: 0}} className="text_type_main-large text_color_primary">
+                            {title}
+                        </h1>
                     </div>
                     }
                     <button type="button" className={styles["close-icon"]} onClick={close}>
@@ -49,6 +42,7 @@ const Modal = ({close, type, ...props}) => {
 }
 Modal.propTypes = {
     close: PropTypes.func.isRequired,
-    type: PropTypes.string.isRequired
+    paddings: PropTypes.string.isRequired,
+    title: PropTypes.string
 };
 export default Modal;
