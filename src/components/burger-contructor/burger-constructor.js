@@ -46,6 +46,7 @@ const BurgerConstructor = ({data}) => {
             <div className={styles.ingredients}>
                 <div className="ml-8">
                     <ConstructorElement
+                        key={`${getBun._id}_top`}
                         type="top"
                         text={getBun.name + " (верх)"}
                         thumbnail={getBun.image}
@@ -73,6 +74,7 @@ const BurgerConstructor = ({data}) => {
                 </div>
                 <div className="pl-8">
                     <ConstructorElement
+                        key={`${getBun._id}_bottom`}
                         type="bottom"
                         text={getBun.name + " (низ)"}
                         thumbnail={getBun.image}

@@ -25,7 +25,7 @@ const Modal = ({close, paddings, title, ...props}) => {
                 <div className={`${styles.modal} ${paddings}`}>
                     {title &&
                     <div className={styles.title}>
-                        <h1 style={{margin: 0}} className="text_type_main-large text_color_primary">
+                        <h1 className={`${styles["title-text"]} text_type_main-large text_color_primary`}>
                             {title}
                         </h1>
                     </div>

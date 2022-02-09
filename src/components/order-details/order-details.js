@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './order-details.module.css';
-import {ingredientType} from "../../utils/types";
+import PropTypes from "prop-types";
 
 const OrderDetails = ({data}) => {
     return (
@@ -17,6 +17,9 @@ const OrderDetails = ({data}) => {
     );
 };
 OrderDetails.propTypes = {
-    data: ingredientType
+    data: PropTypes.shape({
+        orderId: PropTypes.string,
+        status: PropTypes.string
+    })
 };
 export default OrderDetails;

@@ -17,6 +17,10 @@
     text-align: left;
 }
 
+.title-text {
+    margin: 0;
+}
+
 .close-icon {
     position: absolute;
     border: none;
