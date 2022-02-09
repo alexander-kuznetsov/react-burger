@@ -46,7 +46,6 @@ const BurgerConstructor = ({data}) => {
             <div className={styles.ingredients}>
                 <div className="ml-8">
                     <ConstructorElement
-                        key={`${getBun._id}_top`}
                         type="top"
                         text={getBun.name + " (верх)"}
                         thumbnail={getBun.image}
@@ -58,10 +57,9 @@ const BurgerConstructor = ({data}) => {
                 <div className={`${styles.filings} scrollbar`}>
                     {data.filter(elem => elem.type !== "bun")
                         .map((elem, index) => (
-                                <div className={`${styles.container} pr-2`}>
+                                <div className={`${styles.container} pr-2`} key={`${elem._id}_${index}`}>
                                     <DragIcon type="primary"/>
                                     <ConstructorElement
-                                        key={`${elem._id}_${index}`}
                                         type={getType(index, data.length)}
                                         isLocked={false}
                                         text={elem.name}
@@ -74,7 +72,6 @@ const BurgerConstructor = ({data}) => {
                 </div>
                 <div className="pl-8">
                     <ConstructorElement
-                        key={`${getBun._id}_bottom`}
                         type="bottom"
                         text={getBun.name + " (низ)"}
                         thumbnail={getBun.image}
