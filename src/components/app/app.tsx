@@ -3,6 +3,7 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import styles from "./app.module.css";
 import BurgerConstructor from "../burger-contructor/burger-constructor";
+import {BurgerConstructorContext} from "../../global-context/burger-constructor-context";
 
 function App() {
     const url = "https://norma.nomoreparties.space/api/ingredients";
@@ -35,7 +36,10 @@ function App() {
             <AppHeader/>
             <main className={styles.main}>
                 <BurgerIngredients data={ingredients}/>
-                <BurgerConstructor data={ingredients}/>
+                <BurgerConstructorContext.Provider value={ingredients}>
+                    <BurgerConstructor/>
+                </BurgerConstructorContext.Provider>
+
             </main>
         </div>
     );
