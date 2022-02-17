@@ -1,0 +1,33 @@
+.header-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    max-width: 1920px;
+    margin: 0;
+    background: #1C1C21;
+}
+
+.header {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1280px;
+}
+
+.navigation-block {
+    display: flex;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.item_position_center {
+    justify-self: center;
+}
+
+.item_position_end {
+    justify-self: end;
+}
