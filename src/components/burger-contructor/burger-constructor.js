@@ -8,16 +8,19 @@ import {BurgerConstructorContext} from "../../global-context/burger-constructor-
 
 const BurgerConstructor = () => {
     const data = React.useContext(BurgerConstructorContext);
-    const [ingredients] = React.useState(data.filter(elem => elem.type !== "bun")
-    );
+    //хук добавлен специально, т.к. на данный момент предполагаю, что ингредиенты в конструкторе пользователь будет иметь возможность изменять
+    //и тогда текущий набор ингредиентов в конструкторе это его состояние. То же касается и булочек, которые также по этой причине вынесены в состояние
+    const [ingredients] = React.useState(data.filter(elem => elem.type !== "bun"));
 
     const [bun] = React.useState(data.find(elem => elem.type === "bun"));
     const [modalState, setModalState] = React.useState({
         isOpened: false,
-        number: undefined
+        number: null
     });
     const openModal = () => {
         const orderIds = ingredients.map(elem => elem._id);
+        //не было уверенности в том что в data сете контекста всегда будет ровно две булки. Что если там будет несколько типов булок на выбор?
+        //поэтому идентификаторы заказа выбираются именно те, которые физически в данный момент отрисованы. Да, с двойным пушем некрасиво, извините(
         orderIds.push(bun._id)
         orderIds.push(bun._id)
         fetch(
@@ -47,17 +50,17 @@ const BurgerConstructor = () => {
             } else {
                 console.log(`Кажется, что-то пошло не так: ${json.message()}`)
             }
-        })
+        }).catch(err => console.log(err));
     };
 
     const closeModal = () => {
         setModalState({
             isOpened: false,
-            order: {}
+            number: null
         });
     }
 
-    const getTotalPrice = () => ingredients.filter(elem => elem.type !== "bun").reduce((partSum, elem) => partSum + elem.price, 0) + bun.price * 2;
+    const getTotalPrice = () => ingredients.reduce((partSum, elem) => partSum + elem.price, 0) + bun.price * 2;
 
     return (
         <section className={`${styles['burger-constructor']} pt-25 pl-4`}>
@@ -73,9 +76,8 @@ const BurgerConstructor = () => {
                 </div>
 
                 <div className={`${styles.filings} scrollbar`}>
-                    {ingredients.filter(elem => elem.type !== "bun")
-                        .map((elem, index) => (
-                            <div className={`${styles.container} pr-2`} key={`${elem._id}_${index}`}>
+                    {ingredients.map((elem) => (
+                            <div className={`${styles.container} pr-2`} key={`${elem._id}`}>
                                 <DragIcon type="primary"/>
                                 <ConstructorElement
                                     isLocked={false}
@@ -84,8 +86,8 @@ const BurgerConstructor = () => {
                                     thumbnail={elem.image}
                                 />
                             </div>
-                            )
-                        )}
+                        )
+                    )}
                 </div>
                 <div className="pl-8">
                     <ConstructorElement
